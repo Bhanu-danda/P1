@@ -4,7 +4,6 @@ import Hero from './components/Hero.jsx';
 
 import Skills from './components/Skills.jsx';
 import Projects from './components/Projects.jsx';
-import Achievements from './components/Achievements.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 
@@ -17,7 +16,6 @@ function App() {
         <Hero />
         <Skills />
         <Projects />
-        <Achievements />
         <Contact />
       </main>
 
