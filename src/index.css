@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: oklch(0.65 0.25 250);
+  --color-brand-secondary: oklch(0.75 0.15 180);
+  --color-surface-900: oklch(0.12 0.02 240);
+  --color-surface-800: oklch(0.16 0.02 240);
+  --color-surface-700: oklch(0.20 0.02 240);
+  --color-surface-600: oklch(0.25 0.02 240);
+  --color-text-primary: oklch(0.98 0.01 240);
+  --color-text-secondary: oklch(0.85 0.02 240);
+
+  --font-sans: "Inter", "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-surface-900 text-text-primary antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-full bg-brand-primary text-white font-medium transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+
+    &:hover {
+      box-shadow: 0 0 20px color-mix(in oklch, var(--color-brand-primary), transparent 50%);
+    }
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-full border border-surface-700 bg-surface-800/50 backdrop-blur-md text-text-primary font-medium transition-all duration-300 hover:bg-surface-700 hover:scale-105 active:scale-95;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-24 md:py-32;
+  }
+
+  .glass-card {
+    @apply bg-surface-800/40 backdrop-blur-xl border border-surface-700/50 rounded-2xl p-6;
+  }
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-surface-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-surface-700);
+  border-radius: 9999px;
+  border: 2px solid var(--color-surface-900);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-surface-600);
+}
