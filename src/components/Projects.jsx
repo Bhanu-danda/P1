@@ -1,167 +1,114 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, Filter, Package } from 'lucide-react';
-import { cn } from '../lib/utils';
-
-const projects = [
-    {
-        id: 1,
-        name: 'Real-time Data Pipeline',
-        description: 'A scalable ETL pipeline using Kafka and Spark for processing streaming events with sub-second latency.',
-        tech: ['Spark', 'Kafka', 'Python', 'AWS'],
-        category: 'Data',
-        github: 'https://github.com',
-        demo: 'https://example.com',
-        image: 'https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2070&auto=format&fit=crop',
-    },
-    {
-        id: 2,
-        name: 'E-commerce Analytics',
-        description: 'Insightful dashboard and backend for analyzing massive e-commerce datasets using BigQuery.',
-        tech: ['React', 'BigQuery', 'Node.js', 'GCP'],
-        category: 'Full Stack',
-        github: 'https://github.com',
-        demo: 'https://example.com',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop',
-    },
-    {
-        id: 3,
-        name: 'Health Monitoring System',
-        description: 'IoT-based healthcare system for real-time patient status tracking with automated alerts.',
-        tech: ['IoT', 'Redis', 'Python', 'Docker'],
-        category: 'Full Stack',
-        github: 'https://github.com',
-        demo: 'https://example.com',
-        image: 'https://images.unsplash.com/photo-1576091160550-2173bdb999ef?q=80&w=2070&auto=format&fit=crop',
-    },
-    {
-        id: 4,
-        name: 'Distributed Database',
-        description: 'A custom implementation of a distributed key-value store with eventual consistency.',
-        tech: ['C++', 'gRPC', 'RocksDB'],
-        category: 'Data',
-        github: 'https://github.com',
-        demo: 'https://example.com',
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=2070&auto=format&fit=crop',
-    },
-];
-
-const ProjectCard = ({ project }) => {
-    return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4 }}
-            className="glass-card group overflow-hidden p-0 h-full border-surface-700/50 hover:border-brand-primary/30"
-        >
-            <div className="relative h-56 overflow-hidden">
-                <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-900 to-transparent group-hover:opacity-0 transition-opacity duration-500" />
-
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-brand-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[2px] flex items-center justify-center gap-4">
-                    <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-surface-900 text-white flex items-center justify-center hover:bg-brand-primary transition-colors duration-300"
-                    >
-                        <Github size={20} />
-                    </a>
-                    <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-surface-900 text-white flex items-center justify-center hover:bg-brand-primary transition-colors duration-300"
-                    >
-                        <ExternalLink size={20} />
-                    </a>
-                </div>
-            </div>
-
-            <div className="p-8 space-y-4">
-                <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-brand-primary uppercase tracking-widest">{project.category}</span>
-                    <div className="flex gap-2">
-                        <Github size={16} className="text-text-secondary hover:text-white cursor-pointer" />
-                        <ExternalLink size={16} className="text-text-secondary hover:text-white cursor-pointer" />
-                    </div>
-                </div>
-
-                <h3 className="text-2xl font-bold group-hover:text-brand-primary transition-colors duration-300">{project.name}</h3>
-                <p className="text-text-secondary text-sm leading-relaxed line-clamp-2">{project.description}</p>
-
-                <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tech.map((t) => (
-                        <span key={t} className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-text-secondary uppercase tracking-tight">
-                            {t}
-                        </span>
-                    ))}
-                </div>
-            </div>
-        </motion.div>
-    );
-};
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import weatherImg from "../assets/projects/weather-pipeline.png";
+import foodDbImg from "../assets/projects/food-db.png";
 
 const Projects = () => {
-    const [filter, setFilter] = useState('All');
-    const categories = ['All', 'Data', 'Full Stack'];
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-    const filteredProjects = projects.filter(p => filter === 'All' || p.category === filter);
-
+    const projectList = [
+        {
+            title: "End-to-End Weather Data Engineering Pipeline",
+            description: "Built an automated data pipeline that ingests real-time weather data from external APIs and stores it in a cloud-based data lake on AWS S3. Implemented the Medallion Architecture (Raw → Silver → Gold) for structured data processing and transformation. Used Pandas for data cleaning and transformation, storing optimized datasets in Parquet format to generate analytics-ready datasets.",
+            tech: ["Python", "Pandas", "AWS S3", "OpenWeather API", "Parquet", "Git"],
+            link: "https://github.com/Bhanu-danda/weather-data-batch-processing",
+            image: "/pipelineproject.png"
+        },
+        {
+            title: "Food Delivery Relational Database System",
+            description: "Designed a normalized PostgreSQL database schema for a food delivery platform. Implemented complex relational models including many-to-many relationships between orders and menu items while preserving historical pricing data through schema versioning. Focused on maintaining strong data integrity and efficient relational structure.",
+            tech: ["PostgreSQL", "SQL", "Database Normalization", "Git"],
+            link: "https://github.com/Bhanu-danda/Food-delivery-database-design",
+            image: "/databaseproject.png"
+        },
+        {
+            title: "Mutual Fund Performance & Investment Analytics",
+            description: "Built an interactive Power BI dashboard to analyze mutual fund performance and support data-driven investment decisions. The dashboard compares funds across multiple return periods, analyzes expense ratios, and includes SIP and lumpsum investment calculators for investment planning.",
+            tech: ["Power BI", "DAX", "Power Query", "Excel", "Data Visualization"],
+            link: "https://github.com/Bhanu-danda/MutualFund-Performance-Insights",
+            image: "/mutualfund-dashboard.png"
+        }
+    ];
+    console.log(projectList.length);
     return (
-        <section id="projects" className="py-24 bg-surface-800/20">
-            <div className="section-container">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 text-brand-primary text-sm font-bold tracking-widest uppercase">
-                            <Package size={16} />
-                            Projects
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-bold italic">Building <span className="text-text-primary not-italic">Better</span></h2>
-                    </div>
+        <section id="projects" className="py-24 md:py-32 bg-[#0a0a0a] overflow-hidden" ref={sectionRef}>
+            <div className="section-container max-w-7xl mx-auto px-6">
 
-                    <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
-                        <Filter size={14} className="text-brand-primary mr-2" />
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setFilter(cat)}
-                                className={cn(
-                                    "px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 border whitespace-nowrap",
-                                    filter === cat
-                                        ? "bg-brand-primary border-brand-primary text-white"
-                                        : "border-surface-700 bg-surface-800/50 text-text-secondary hover:border-brand-primary/40"
-                                )}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
+                {/* Section Header */}
                 <motion.div
-                    layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8 }}
+                    className="mb-16 md:mb-24"
                 >
-                    <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((proj) => (
-                            <ProjectCard key={proj.id} project={proj} />
-                        ))}
-                    </AnimatePresence>
+                    <h2 className="text-5xl md:text-6xl font-logo font-bold text-white tracking-tighter">
+                        Projects
+                    </h2>
+                    <p className="text-lg font-sans text-[#9ca3af] mt-4 max-w-xl">
+                        Things I've built and systems I've designed.
+                    </p>
                 </motion.div>
 
-                <div className="mt-16 text-center">
-                    <a href="https://github.com" className="btn-secondary group inline-flex items-center gap-3">
-                        <Github size={18} className="group-hover:rotate-12 transition-transform" />
-                        Check more on GitHub
-                    </a>
+                {/* Projects Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {projectList.map((project, idx) => (
+                        <motion.div
+                            key={project.title}
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.2 + (idx * 0.2) }}
+                            whileHover={{ y: -6 }}
+                            className="bg-[#111111] border border-[#262626] rounded-2xl shadow-xl hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:border-blue-500/30 transition-all duration-500 flex flex-col group"
+                        >
+                            {/* Image Container */}
+                            <div className="relative overflow-hidden w-full h-56 rounded-t-2xl">
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-56 object-cover rounded-t-2xl transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-60 pointer-events-none" />
+                            </div>
+
+                            {/* Card Content */}
+                            <div className="p-8 flex flex-col flex-grow space-y-6">
+                                <h3 className="text-2xl font-logo font-bold text-white tracking-tight leading-snug">
+                                    {project.title}
+                                </h3>
+
+                                <p className="text-[#9ca3af] font-sans text-sm leading-relaxed flex-grow">
+                                    {project.description}
+                                </p>
+
+                                <div className="flex flex-wrap gap-2 pt-2">
+                                    {project.tech.map(t => (
+                                        <span
+                                            key={t}
+                                            className="px-3 py-1.5 rounded-full border border-[#262626] bg-[#0a0a0a] text-xs font-sans text-[#d4d4d4] group-hover:border-blue-500/30 transition-colors duration-300"
+                                        >
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div className="pt-4 mt-auto">
+                                    <motion.a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-6 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-white/10 w-fit group/btn"
+                                    >
+                                        View Code
+                                        <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                                    </motion.a>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>
@@ -169,3 +116,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

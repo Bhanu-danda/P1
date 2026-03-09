@@ -1,66 +1,97 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Database, Code, Wrench, Settings, Layers, Workflow, Server, Cpu, Cloud, GitBranch, Github, FileJson, Table, Terminal, Monitor, Sparkle } from 'lucide-react';
+import { Database, Server, Terminal, Settings2 } from 'lucide-react';
 
 const skillCategories = [
-
     {
         title: 'Data Engineering',
-        icon: <Workflow size={24} />,
-        color: 'text-blue-500',
-        skills: ['ETL Pipelines', 'Spark/PySpark', 'Airflow', 'Kafka', 'Docker', 'AWS/Azure'],
+        icon: <Settings2 size={22} className="text-blue-500" />,
+        skills: [
+            { name: 'Python', icon: '🐍' },
+            { name: 'Apache Spark', icon: '⚡' },
+            { name: 'Hadoop', icon: '🐘' },
+            { name: 'Kafka', icon: '📨' },
+            { name: 'Airflow', icon: '☁' }
+        ],
     },
     {
-        title: 'Databases',
-        icon: <Database size={24} />,
-        color: 'text-emerald-500',
-        skills: ['PostgreSQL', 'MongoDB', 'Redis', 'SQL Server', 'MySQL', 'Elasticsearch'],
+        title: 'Data & Analytics',
+        icon: <Database size={22} className="text-cyan-500" />,
+        skills: [
+            { name: 'SQL', icon: '📊' },
+            { name: 'Pandas', icon: '🐼' },
+            { name: 'NumPy', icon: '🔢' },
+            { name: 'Power BI', icon: '📉' },
+            { name: 'Tableau', icon: '🖌' }
+        ],
     },
     {
-        title: 'Programming',
-        icon: <Code size={24} />,
-        color: 'text-amber-500',
-        skills: ['Python', 'SQL', 'JavaScript', 'TypeScript', 'Java', 'Scala'],
+        title: 'Backend Development',
+        icon: <Server size={22} className="text-indigo-500" />,
+        skills: [
+            { name: 'Java', icon: '☕' },
+            { name: 'Node.js', icon: '🟢' },
+            { name: 'REST APIs', icon: '🔌' }
+        ],
     },
     {
-        title: 'Tools & Others',
-        icon: <Wrench size={24} />,
-        color: 'text-rose-500',
-        skills: ['Git & GitHub', 'Jenkin', 'Grafana', 'PowerBI', 'Tableau', 'Prometheus'],
+        title: 'Tools & Platforms',
+        icon: <Terminal size={22} className="text-emerald-500" />,
+        skills: [
+            { name: 'Git', icon: '🌿' },
+            { name: 'Docker', icon: '🐳' },
+            { name: 'Linux', icon: '🐧' },
+            { name: 'AWS', icon: '☁' }
+        ],
     },
 ];
 
-const SkillCard = ({ category, idx }) => {
+const SkillPill = ({ name, icon }) => (
+    <motion.div
+        whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 15px rgba(6, 182, 212, 0.2)",
+            borderColor: "rgba(6, 182, 212, 0.4)"
+        }}
+        className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#262626] bg-[#0a0a0a] text-sm font-sans text-[#d4d4d4] transition-all cursor-default group/pill"
+    >
+        <span className="group-hover/pill:brightness-125 transition-all">{icon}</span>
+        <span>{name}</span>
+    </motion.div>
+);
+
+const SkillCard = ({ title, icon, skills, index }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-50px' });
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
         <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: idx * 0.1, duration: 0.6 }}
-            whileHover={{ y: -5 }}
-            className="glass-card group hover:border-brand-primary/40 transition-all duration-500 p-8 flex flex-col items-start gap-6 h-full"
+            transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
+            whileHover={{ y: -8 }}
+            className="p-8 md:p-10 rounded-3xl bg-[#111111] border border-[#262626] hover:border-[#3b82f6]/40 transition-all duration-500 group relative shadow-2xl"
         >
-            <div className={`p-4 rounded-2xl bg-surface-700/50 ${category.color} group-hover:scale-110 transition-transform duration-500`}>
-                {category.icon}
+            {/* Soft Glow Effect */}
+            <div className="absolute -inset-px bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 rounded-3xl transition-all duration-500 -z-10" />
+
+            {/* Card Header */}
+            <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-3">
+                    {icon}
+                    <h3 className="text-xl md:text-2xl font-logo font-bold text-white tracking-tight">
+                        {title}
+                    </h3>
+                </div>
+                <div className="h-px w-full bg-[#2a2a2a]" />
             </div>
 
-            <div className="space-y-4 w-full">
-                <h3 className="text-2xl font-bold">{category.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed font-medium">Expertise in building scalable systems and leveraging modern tools.</p>
-
-                <div className="flex flex-wrap gap-2 pt-2">
-                    {category.skills.map((skill) => (
-                        <span
-                            key={skill}
-                            className="px-3 py-1 rounded-full bg-surface-700/30 border border-surface-700/50 text-xs font-medium text-text-secondary group-hover:text-text-primary group-hover:border-brand-primary/20 transition-all duration-300"
-                        >
-                            {skill}
-                        </span>
-                    ))}
-                </div>
+            {/* Skill Pills Grid */}
+            <div className="flex flex-wrap gap-3">
+                {skills.map((skill) => (
+                    <SkillPill key={skill.name} name={skill.name} icon={skill.icon} />
+                ))}
             </div>
         </motion.div>
     );
@@ -68,30 +99,46 @@ const SkillCard = ({ category, idx }) => {
 
 const Skills = () => {
     return (
-        <section id="skills" className="py-24 relative overflow-hidden">
-            <div className="section-container relative z-10">
-                <div className="text-center max-w-3xl mx-auto space-y-6 mb-20">
-                    <div className="flex items-center justify-center gap-2 text-brand-primary text-sm font-bold tracking-widest uppercase">
-                        Skills
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-bold">Comprehensive <span className="text-brand-primary italic">Tech Stack</span></h2>
-                    <p className="text-lg text-text-secondary">
-                        Mastering the intersection of data management, application development, and workflow automation.
-                    </p>
+        <section id="skills" className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
+            <div className="section-container max-w-7xl mx-auto px-6">
+
+                {/* Section Title & Subtitle */}
+                <div className="mb-16 md:mb-24">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="space-y-4"
+                    >
+                        <h2 className="text-5xl md:text-6xl font-logo font-bold text-[#e5e5e5] tracking-tighter">
+                            Skills
+                        </h2>
+                        <p className="text-lg font-sans text-[#9ca3af] max-w-xl">
+                            Technologies I use to build scalable systems.
+                        </p>
+                    </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* Skills Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
                     {skillCategories.map((cat, idx) => (
-                        <SkillCard key={cat.title} category={cat} idx={idx} />
+                        <SkillCard
+                            key={cat.title}
+                            title={cat.title}
+                            icon={cat.icon}
+                            skills={cat.skills}
+                            index={idx}
+                        />
                     ))}
                 </div>
             </div>
 
-            {/* Decorative Gradients */}
-            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-brand-primary/10 rounded-full blur-[120px] -translate-y-1/2 -z-10" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-secondary/5 rounded-full blur-[120px] -z-10" />
+            {/* Background Decorative Element */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-blue-500/5 blur-[120px] pointer-events-none -z-10" />
         </section>
     );
 };
 
 export default Skills;
+

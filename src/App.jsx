@@ -20,13 +20,15 @@ const Home = () => (
 function App() {
   return (
     <Router>
-      <div className="relative min-h-screen selection:bg-brand-primary selection:text-white overflow-x-hidden bg-surface-900">
+      <div className="relative min-h-screen flex flex-col selection:bg-brand-primary selection:text-white overflow-x-hidden bg-surface-900">
         <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/resume" element={<Resume />} />
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/resume" element={<Resume />} />
+          </Routes>
+        </div>
 
         <Footer />
 
