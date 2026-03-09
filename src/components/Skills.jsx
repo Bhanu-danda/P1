@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Database, Code, Wrench, Settings, Layers, Workflow, Server, Cpu, Cloud, GitBranch, Github, FileJson, Table, Terminal, Monitor, Sparkle } from 'lucide-react';
 
 const skillCategories = [
+
     {
         title: 'Data Engineering',
         icon: <Workflow size={24} />,

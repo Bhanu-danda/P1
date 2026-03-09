@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Skills', href: '#skills' },
+    { name: 'About Me', href: '#home' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Services', href: '#skills' },
+    { name: 'Resume', href: '#' },
 ];
 
 const Navbar = () => {
@@ -16,97 +16,105 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
-        <nav
+        <div
             className={cn(
-                'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/0',
-                scrolled ? 'bg-surface-900/80 backdrop-blur-md border-white/5 py-4' : 'bg-transparent py-6'
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex justify-center",
+                scrolled ? "pt-4" : "pt-8"
             )}
         >
-            <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <nav
+                className={cn(
+                    "w-[95%] max-w-7xl bg-white/95 backdrop-blur-md rounded-full px-8 py-3 flex items-center justify-between shadow-2xl transition-all duration-500",
+                    scrolled ? "scale-[0.98] py-2.5" : "scale-100"
+                )}
+            >
+                {/* Name - Left side */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="text-xl font-bold flex items-center gap-2 group cursor-pointer"
+                    className="text-xl font-extrabold text-black tracking-tight cursor-pointer"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                    <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-white text-xs group-hover:rotate-12 transition-transform">
-                        BP
-                    </div>
-                    <span className="bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent">
-                        BHANU PRASAD
-                    </span>
+                    BHANU PRASAD
                 </motion.div>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-8">
-                    {navItems.map((item, idx) => (
-                        <motion.a
-                            key={item.name}
-                            href={item.href}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors"
-                        >
-                            {item.name}
-                        </motion.a>
-                    ))}
-                    <motion.button
+                {/* Desktop Menu - Right side */}
+                <div className="hidden md:flex items-center gap-10">
+                    <div className="flex items-center gap-8">
+                        {navItems.map((item, idx) => (
+                            <motion.a
+                                key={item.name}
+                                href={item.href}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="text-[13px] font-bold text-gray-500 hover:text-black transition-colors uppercase tracking-wider"
+                            >
+                                {item.name}
+                            </motion.a>
+                        ))}
+                    </div>
+
+                    <motion.a
+                        href="#contact"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="btn-primary py-2 px-5 flex items-center gap-2 text-sm"
+                        className="bg-black text-white px-8 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-800 transition-all shadow-lg hover:shadow-black/20"
                     >
-                        <Download size={16} />
-                        Download CV
-                    </motion.button>
+                        Contact
+                    </motion.a>
                 </div>
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden text-text-primary p-2"
+                    className="md:hidden text-black p-2"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
-            </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-surface-900 border-b border-surface-800 overflow-hidden"
-                    >
-                        <div className="px-6 py-8 flex flex-col gap-6">
-                            {navItems.map((item) => (
+                {/* Mobile Menu */}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                            className="absolute top-full left-0 right-0 mt-4 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden md:hidden mx-4"
+                        >
+                            <div className="p-8 flex flex-col gap-6 items-center text-center">
+                                {navItems.map((item) => (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        className="text-lg font-bold text-gray-800 hover:text-black transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {item.name}
+                                    </a>
+                                ))}
                                 <a
-                                    key={item.name}
-                                    href={item.href}
-                                    className="text-lg font-medium text-text-secondary hover:text-brand-primary transition-colors"
+                                    href="#contact"
+                                    className="bg-black text-white w-full py-4 rounded-2xl font-bold"
                                     onClick={() => setIsOpen(false)}
                                 >
-                                    {item.name}
+                                    Contact
                                 </a>
-                            ))}
-                            <button className="btn-primary w-full flex items-center justify-center gap-2">
-                                <Download size={18} />
-                                Download CV
-                            </button>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </nav>
+        </div>
     );
 };
 
 export default Navbar;
+

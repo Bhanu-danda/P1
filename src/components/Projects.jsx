@@ -122,7 +122,7 @@ const Projects = () => {
                     <div className="space-y-4">
                         <div className="flex items-center gap-2 text-brand-primary text-sm font-bold tracking-widest uppercase">
                             <Package size={16} />
-                            Featured Work
+                            Projects
                         </div>
                         <h2 className="text-4xl md:text-6xl font-bold italic">Building <span className="text-text-primary not-italic">Better</span></h2>
                     </div>
