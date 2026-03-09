@@ -7,9 +7,9 @@ const Contact = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     const socialLinks = [
-        { label: 'LinkedIn', icon: <Linkedin size={16} />, href: 'https://linkedin.com/in/bhanu-prasad' },
-        { label: 'GitHub', icon: <Github size={16} />, href: 'https://github.com/bhanu-prasad' },
-        { label: 'Phone', icon: <Phone size={16} />, href: 'tel:+911234567890' },
+        { label: 'LinkedIn', icon: <Linkedin size={16} />, href: 'https://https://www.linkedin.com/in/bhanu-prasad-reddy-b1431b282/.com/in/bhanu-prasad' },
+        { label: 'GitHub', icon: <Github size={16} />, href: 'https://github.com/bhanu-https://github.com/Bhanu-danda' },
+        { label: 'Phone', icon: <Phone size={16} />, href: 'tel:+918688020121' },
     ];
 
     return (
@@ -61,7 +61,7 @@ const Contact = () => {
                         {/* CTA Area */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                             <motion.a
-                                href="mailto:bhanu.prasad@example.com"
+                                href="mailto:dandabhanu116@gmail.com"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-white/10 transition-all group"
@@ -71,7 +71,7 @@ const Contact = () => {
                             </motion.a>
 
                             <span className="text-[#9ca3af] text-sm font-medium tracking-wide">
-                                bhanu.prasad@example.com
+                                dandabhanu116@gmail.com
                             </span>
                         </div>
 
