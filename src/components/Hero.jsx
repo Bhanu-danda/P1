@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 import { MousePointer2, ChevronDown, Download, ExternalLink, User } from 'lucide-react';
 
 const Hero = () => {
@@ -85,10 +86,10 @@ const Hero = () => {
                                 View Projects
                                 <MousePointer2 size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                             </a>
-                            <button className="btn-secondary flex items-center gap-2 w-full sm:w-auto justify-center">
+                            <Link to="/resume" className="btn-secondary flex items-center gap-2 w-full sm:w-auto justify-center">
                                 <Download size={18} />
-                                Download CV
-                            </button>
+                                View Resume
+                            </Link>
                         </div>
                     </div>
 

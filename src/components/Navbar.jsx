@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
 
 const navItems = [
-    { name: 'About Me', href: '#home' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Services', href: '#skills' },
-    { name: 'Resume', href: '#' },
+    { name: 'About Me', href: '/#home' },
+    { name: 'Projects', href: '/#projects' },
+    { name: 'Services', href: '/#skills' },
+    { name: 'Resume', href: '/resume' },
 ];
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -21,6 +23,19 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const isHome = location.pathname === '/';
+
+    const handleNavClick = (href) => {
+        setIsOpen(false);
+        if (href.startsWith('/#') && isHome) {
+            const id = href.split('#')[1];
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
 
     return (
         <div
@@ -40,26 +55,34 @@ const Navbar = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="text-xl font-bold font-logo text-black tracking-tighter cursor-pointer"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                    BHANU PRASAD
+                    <Link to="/">BHANU PRASAD</Link>
                 </motion.div>
 
                 {/* Desktop Menu - Right side */}
                 <div className="hidden md:flex items-center gap-10">
                     <div className="flex items-center gap-8">
-                        {navItems.map((item, idx) => (
-                            <motion.a
-                                key={item.name}
-                                href={item.href}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="text-[13px] font-medium font-sans text-gray-500 hover:text-black hover:translate-y-[-1px] transition-all duration-300 uppercase tracking-widest px-1"
-                            >
-                                {item.name}
-                            </motion.a>
-                        ))}
+                        {navItems.map((item, idx) => {
+                            const isLink = item.href.startsWith('/resume');
+                            const Component = isLink ? Link : 'a';
+                            const props = isLink ? { to: item.href } : { href: item.href, onClick: (e) => handleNavClick(item.href) };
+
+                            return (
+                                <motion.div
+                                    key={item.name}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: idx * 0.1 }}
+                                >
+                                    <Component
+                                        {...props}
+                                        className="text-[13px] font-medium font-sans text-gray-500 hover:text-black hover:translate-y-[-1px] transition-all duration-300 uppercase tracking-widest px-1 block"
+                                    >
+                                        {item.name}
+                                    </Component>
+                                </motion.div>
+                            );
+                        })}
                     </div>
 
                     <motion.a
@@ -90,23 +113,28 @@ const Navbar = () => {
                             className="absolute top-full left-0 right-0 mt-4 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden md:hidden mx-4"
                         >
                             <div className="p-8 flex flex-col gap-6 items-center text-center">
-                                {navItems.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className="text-lg font-bold text-gray-800 hover:text-black transition-colors"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        {item.name}
-                                    </a>
-                                ))}
-                                <a
-                                    href="#contact"
+                                {navItems.map((item) => {
+                                    const isLink = item.href.startsWith('/resume');
+                                    const Component = isLink ? Link : 'a';
+                                    const props = isLink ? { to: item.href, onClick: () => setIsOpen(false) } : { href: item.href, onClick: () => handleNavClick(item.href) };
+
+                                    return (
+                                        <Component
+                                            key={item.name}
+                                            {...props}
+                                            className="text-lg font-bold text-gray-800 hover:text-black transition-colors"
+                                        >
+                                            {item.name}
+                                        </Component>
+                                    );
+                                })}
+                                <Link
+                                    to="/#contact"
                                     className="bg-black text-white w-full py-4 rounded-2xl font-bold"
                                     onClick={() => setIsOpen(false)}
                                 >
                                     Contact
-                                </a>
+                                </Link>
                             </div>
                         </motion.div>
                     )}
@@ -117,4 +145,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
