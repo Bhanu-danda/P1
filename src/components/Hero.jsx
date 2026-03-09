@@ -40,9 +40,9 @@ const Hero = () => {
 
                             <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-[30px] overflow-hidden shadow-2xl border border-white/10 bg-surface-800">
                                 <img
-                                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop"
+                                    src="/profile.jpeg"
                                     alt="Bhanu Prasad"
-                                    className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 hover:brightness-100 transition-all duration-700"
+                                    className="rounded-[30px] object-cover"
                                 />
                                 {/* Bottom vignette */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
