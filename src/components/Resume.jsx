@@ -58,7 +58,7 @@ const Resume = () => {
                         <div className="w-3 h-3 rounded-full bg-green-500/50" />
                     </div>
 
-                    <div className="rounded-xl overflow-hidden bg-white/5 aspect-[1/1.4] md:aspect-[1/1.3] w-full">
+                    <div className="rounded-xl overflow-hidden bg-white/5 w-full h-[600px] md:h-[1000px] shadow-inner">
                         {/* 
                             Note: In a real scenario, the user would place resume.pdf in the public folder.
                             Using an iframe to display the PDF.
