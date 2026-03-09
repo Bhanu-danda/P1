@@ -1,92 +1,106 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, Github, Linkedin, Phone, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Phone, ArrowRight } from 'lucide-react';
 
 const Contact = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     const socialLinks = [
-        { label: 'LinkedIn', value: 'linkedin.com/in/bhanu-prasad', href: 'https://linkedin.com/in/bhanu-prasad', icon: <Linkedin size={18} /> },
-        { label: 'GitHub', value: 'github.com/bhanu-prasad', href: 'https://github.com/bhanu-prasad', icon: <Github size={18} /> },
-        { label: 'Phone', value: '+91 12345 67890', href: 'tel:+911234567890', icon: <Phone size={18} /> },
+        { label: 'LinkedIn', icon: <Linkedin size={16} />, href: 'https://linkedin.com/in/bhanu-prasad' },
+        { label: 'GitHub', icon: <Github size={16} />, href: 'https://github.com/bhanu-prasad' },
+        { label: 'Phone', icon: <Phone size={16} />, href: 'tel:+911234567890' },
     ];
 
     return (
-        <section id="contact" className="py-24 md:py-32 relative overflow-hidden bg-surface-900" ref={ref}>
-            <div className="section-container max-w-[900px] mx-auto text-center relative z-10 px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 1, ease: 'easeOut' }}
-                    className="space-y-16"
-                >
-                    {/* Header */}
-                    <div className="space-y-6">
-                        <h2 className="text-5xl md:text-7xl font-logo font-bold text-white tracking-tight">
+        <section
+            id="contact"
+            className="py-24 md:py-40 bg-[#0a0a0a] overflow-hidden"
+            ref={ref}
+        >
+            <div className="section-container max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
+
+                    {/* Left Side: Large Heading */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <h2 className="font-logo font-bold text-[80px] md:text-[100px] text-[#e5e5e5] leading-none tracking-tighter sticky top-32">
                             Contact
                         </h2>
-                        <p className="text-brand-primary text-lg md:text-xl font-medium">
-                            Psst… exciting opportunities, anyone? 👀
-                        </p>
-                    </div>
+                    </motion.div>
 
-                    {/* Description */}
-                    <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto font-sans">
-                        I'm open to new projects, part-time gigs, or even a full-time adventure.
-                        Have something interesting in mind? Just shoot me an email — I'm practically glued to my inbox. No delays, I promise!
-                    </p>
-
-                    {/* Email CTA */}
-                    <div className="space-y-4">
-                        <a
-                            href="mailto:bhanu.prasad@example.com"
-                            className="inline-flex items-center gap-2 text-3xl md:text-5xl font-bold text-white hover:text-brand-primary transition-all duration-300 group"
-                        >
-                            Reach Out
-                            <ArrowUpRight size={32} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                        </a>
-                        <p className="text-text-secondary font-medium tracking-wide">
-                            bhanu.prasad@example.com
-                        </p>
-                    </div>
-
-                    {/* Socials Divider */}
-                    <div className="pt-16 border-t border-white/5">
-                        <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-text-secondary mb-10">
-                            You can also find me on
-                        </h3>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {socialLinks.map((link) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-primary/30 hover:bg-brand-primary/5 transition-all duration-300"
-                                >
-                                    <div className="p-3 rounded-full bg-surface-800 text-brand-primary group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-black/20">
-                                        {link.icon}
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="flex items-center justify-center gap-1.5 font-bold text-white group-hover:text-brand-primary transition-colors">
-                                            {link.label}
-                                            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        </div>
-                                        <div className="text-xs text-text-secondary">
-                                            {link.value}
-                                        </div>
-                                    </div>
-                                </a>
-                            ))}
+                    {/* Right Side: Content */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="space-y-12"
+                    >
+                        {/* Playful Text */}
+                        <div className="space-y-6">
+                            <p className="font-sans text-[20px] md:text-[22px] font-medium text-brand-primary">
+                                Psst... exciting opportunities, anyone?
+                            </p>
+                            <div className="space-y-4 text-[18px] md:text-[20px] text-[#d4d4d4] leading-relaxed font-sans max-w-xl">
+                                <p>
+                                    I'm open to new projects, part-time gigs, or even a full-time adventure.
+                                </p>
+                                <p>
+                                    Just shoot me an email — I'm practically glued to it. <br className="hidden md:block" />
+                                    No delays, I promise!
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </motion.div>
-            </div>
 
-            {/* Background Decorative Element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-[150px] -z-10" />
+                        {/* Large Spacing / Subtle Divider replacement */}
+                        <div className="h-px w-20 bg-white/10" />
+
+                        {/* CTA Area */}
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                            <motion.a
+                                href="mailto:bhanu.prasad@example.com"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-white/10 transition-all group"
+                            >
+                                Reach Out
+                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            </motion.a>
+
+                            <span className="text-[#9ca3af] text-sm font-medium tracking-wide">
+                                bhanu.prasad@example.com
+                            </span>
+                        </div>
+
+                        {/* Social Links */}
+                        <div className="pt-12 space-y-8">
+                            <p className="text-[#9ca3af] text-sm font-semibold tracking-wider uppercase">
+                                You can also find me on —
+                            </p>
+
+                            <div className="flex flex-wrap gap-4">
+                                {socialLinks.map((social) => (
+                                    <motion.a
+                                        key={social.label}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        whileHover={{ y: -3 }}
+                                        className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-[#d4d4d4] text-sm font-medium hover:border-brand-primary hover:text-brand-primary hover:bg-brand-primary/5 transition-all duration-300"
+                                    >
+                                        {social.icon}
+                                        {social.label}
+                                    </motion.a>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                </div>
+            </div>
         </section>
     );
 };
