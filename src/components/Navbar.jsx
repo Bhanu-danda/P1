@@ -39,7 +39,7 @@ const Navbar = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="text-xl font-extrabold text-black tracking-tight cursor-pointer"
+                    className="text-xl font-bold font-logo text-black tracking-tighter cursor-pointer"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                     BHANU PRASAD
@@ -55,7 +55,7 @@ const Navbar = () => {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="text-[13px] font-bold text-gray-500 hover:text-black transition-colors uppercase tracking-wider"
+                                className="text-[13px] font-medium font-sans text-gray-500 hover:text-black hover:translate-y-[-1px] transition-all duration-300 uppercase tracking-widest px-1"
                             >
                                 {item.name}
                             </motion.a>
@@ -66,7 +66,7 @@ const Navbar = () => {
                         href="#contact"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-black text-white px-8 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-800 transition-all shadow-lg hover:shadow-black/20"
+                        className="bg-black text-white px-8 py-2.5 rounded-full text-[13px] font-bold font-sans hover:bg-gray-800 transition-all shadow-lg hover:shadow-black/20"
                     >
                         Contact
                     </motion.a>

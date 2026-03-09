@@ -11,6 +11,7 @@
   --color-text-secondary: oklch(0.85 0.02 240);
 
   --font-sans: "Inter", "Outfit", sans-serif;
+  --font-logo: "Montserrat", sans-serif;
 }
 
 @layer base {
