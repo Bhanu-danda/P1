@@ -59,15 +59,14 @@ const Projects = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.2 + (idx * 0.2) }}
-                            whileHover={{ y: -6 }}
-                            className="bg-[#111111] border border-[#262626] rounded-2xl shadow-xl hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:border-blue-500/30 transition-all duration-500 flex flex-col group"
+                            className="bg-[#111111] border border-[#262626] rounded-2xl shadow-xl hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] hover:border-[#3b82f6]/50 transition-all duration-500 flex flex-col group relative"
                         >
                             {/* Image Container */}
                             <div className="relative overflow-hidden w-full h-56 rounded-t-2xl">
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-56 object-cover rounded-t-2xl transition-transform duration-500 group-hover:scale-105"
+                                    className="w-full h-56 object-cover rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.07]"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-60 pointer-events-none" />
                             </div>
@@ -86,7 +85,7 @@ const Projects = () => {
                                     {project.tech.map(t => (
                                         <span
                                             key={t}
-                                            className="px-3 py-1.5 rounded-full border border-[#262626] bg-[#0a0a0a] text-xs font-sans text-[#d4d4d4] group-hover:border-blue-500/30 transition-colors duration-300"
+                                            className="px-3 py-1.5 rounded-full border border-[#262626] bg-[#0a0a0a] text-xs font-sans text-[#d4d4d4] transition-all duration-300 group-hover:border-blue-500/40 group-hover:text-blue-400"
                                         >
                                             {t}
                                         </span>
@@ -94,17 +93,17 @@ const Projects = () => {
                                 </div>
 
                                 <div className="pt-4 mt-auto">
-                                    <motion.a
+                                    <a
                                         href={project.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-6 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-white/10 w-fit group/btn"
+                                        className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-lg hover:bg-white w-fit group/btn cursor-pointer"
                                     >
-                                        View Code
-                                        <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
-                                    </motion.a>
+                                        <span className="transition-all duration-300 group-hover/btn:tracking-wide">
+                                            View Code
+                                        </span>
+                                        <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1.5" />
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>
