@@ -8,6 +8,7 @@ import Projects from './components/Projects.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 import Resume from './components/Resume.jsx';
+import CursorTrail from './components/CursorTrail.jsx';
 
 const Home = () => (
   <main className="relative">
@@ -40,6 +41,9 @@ function App() {
           <div className="absolute top-[60%] right-[5%] w-[600px] h-[600px] bg-brand-secondary/5 blur-[150px] rounded-full" />
           <div className="absolute bottom-[10%] left-[30%] w-[400px] h-[400px] bg-brand-primary/5 blur-[100px] rounded-full" />
         </div>
+
+        {/* Global Cursor Trail */}
+        <CursorTrail />
       </div>
     </Router>
   );

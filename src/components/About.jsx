@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { MapPin, GraduationCap, Code2, BookOpen } from 'lucide-react';
+import AcademicJourney from './AcademicJourney';
 
 const quickFacts = [
     { icon: <MapPin size={16} />, label: 'Location: India' },
@@ -169,6 +170,9 @@ const About = () => {
                     </div>
 
                 </div>
+
+                {/* Academic Journey Section */}
+                <AcademicJourney />
             </div>
 
             {/* Background Decorative Element */}

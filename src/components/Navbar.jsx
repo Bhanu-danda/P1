@@ -55,7 +55,7 @@ const Navbar = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="text-xl font-bold font-logo text-black tracking-tighter cursor-pointer"
+                    className="text-[1.6rem] font-black font-['Space_Grotesk'] leading-relaxed tracking-wide text-black cursor-pointer hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-400 hover:text-transparent hover:bg-clip-text transition-all duration-300"
                 >
                     <Link to="/">BHANU PRASAD</Link>
                 </motion.div>
@@ -77,7 +77,7 @@ const Navbar = () => {
                                 >
                                     <Component
                                         {...props}
-                                        className="text-[13px] font-medium font-sans text-gray-500 hover:text-black hover:translate-y-[-1px] transition-all duration-300 uppercase tracking-widest px-1 block"
+                                        className="relative text-[13px] font-medium font-sans text-gray-500 hover:text-orange-500 hover:translate-y-[-1px] transition-all duration-300 uppercase tracking-widest px-1 block after:content-[''] after:absolute after:h-[2px] after:bg-orange-500 after:w-0 hover:after:w-full after:transition-all after:duration-300 after:-bottom-1 after:left-0"
                                     >
                                         {item.name}
                                     </Component>
@@ -90,7 +90,7 @@ const Navbar = () => {
                         href="#contact"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-black text-white px-8 py-2.5 rounded-full text-[13px] font-bold font-sans hover:bg-gray-800 transition-all shadow-lg hover:shadow-black/20"
+                        className="bg-black text-white px-8 py-2.5 rounded-full text-[13px] font-bold font-sans hover:bg-gray-900 hover:text-orange-500 transition-all duration-300 shadow-lg hover:shadow-black/20"
                     >
                         Contact
                     </motion.a>
@@ -123,7 +123,7 @@ const Navbar = () => {
                                         <Component
                                             key={item.name}
                                             {...props}
-                                            className="text-lg font-bold text-gray-800 hover:text-black transition-colors"
+                                            className="text-lg font-bold text-gray-800 hover:text-orange-500 transition-colors duration-300"
                                         >
                                             {item.name}
                                         </Component>
@@ -131,7 +131,7 @@ const Navbar = () => {
                                 })}
                                 <Link
                                     to="/#contact"
-                                    className="bg-black text-white w-full py-4 rounded-2xl font-bold"
+                                    className="bg-black text-white w-full py-4 rounded-2xl font-bold hover:text-orange-500 hover:bg-gray-900 transition-all duration-300"
                                     onClick={() => setIsOpen(false)}
                                 >
                                     Contact
