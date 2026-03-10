@@ -1,10 +1,17 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Phone, ArrowRight } from 'lucide-react';
 
 const Contact = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyEmail = () => {
+        navigator.clipboard.writeText('dandabhanu116@gmail.com');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     const socialLinks = [
         { label: 'LinkedIn', icon: <Linkedin size={16} />, href: 'https://www.linkedin.com/in/bhanu-prasad-reddy-b1431b282/' },
@@ -61,7 +68,9 @@ const Contact = () => {
                         {/* CTA Area */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                             <motion.a
-                                href="mailto:dandabhanu116@gmail.com"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=dandabhanu116@gmail.com&su=Portfolio Contact"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="inline-flex items-center gap-2 bg-[#f5f5f5] text-[#0a0a0a] px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-white/10 transition-all group"
@@ -70,9 +79,27 @@ const Contact = () => {
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </motion.a>
 
-                            <span className="text-[#9ca3af] text-sm font-medium tracking-wide">
-                                dandabhanu116@gmail.com
-                            </span>
+                            <div className="relative flex items-center">
+                                <span
+                                    onClick={handleCopyEmail}
+                                    className="text-[#9ca3af] hover:text-[#e5e5e5] text-sm font-medium tracking-wide cursor-pointer transition-colors duration-300"
+                                >
+                                    dandabhanu116@gmail.com
+                                </span>
+                                <AnimatePresence>
+                                    {copied && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 5 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="absolute left-0 bottom-full mb-2 flex items-center gap-1.5 px-3 py-1.5 bg-[#f5f5f5] text-[#0a0a0a] text-xs font-bold rounded-lg whitespace-nowrap shadow-lg"
+                                        >
+                                            <span className="text-green-600">✓</span> Email copied to clipboard
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
 
                         {/* Social Links */}

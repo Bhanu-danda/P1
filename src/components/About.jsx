@@ -9,6 +9,19 @@ const quickFacts = [
     { icon: <BookOpen size={16} />, label: 'Learning: Big Data & Analytics Systems' },
 ];
 
+const paragraphVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (custom) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: custom * 0.2 + 0.1, // Staggered reveal
+            duration: 0.8,
+            ease: "easeOut"
+        }
+    })
+};
+
 const infoCards = [
     {
         title: 'Interests',
@@ -88,18 +101,35 @@ const About = () => {
 
                         {/* Introduction Paragraphs */}
                         <div className="space-y-5">
-                            <p className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed">
-                                I'm Bhanu Prasad, an aspiring Data Engineer passionate about building scalable data
-                                systems and transforming raw data into meaningful insights.
-                            </p>
-                            <p className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed">
+                            <motion.p
+                                custom={0}
+                                initial="hidden"
+                                animate={isInView ? "visible" : "hidden"}
+                                variants={paragraphVariants}
+                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
+                            >
+                                I'm Bhanu Prasad, an aspiring <span className="text-brand-primary font-medium">Data Engineer</span> passionate about building scalable <span className="text-brand-primary font-medium">data systems</span> and transforming raw data into meaningful insights.
+                            </motion.p>
+                            <motion.p
+                                custom={1}
+                                initial="hidden"
+                                animate={isInView ? "visible" : "hidden"}
+                                variants={paragraphVariants}
+                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
+                            >
                                 I enjoy working with technologies such as Python, SQL, and cloud-based data platforms.
-                                Currently I'm exploring big data tools and modern analytics systems.
-                            </p>
-                            <p className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed">
-                                My goal is to design efficient data pipelines and help organizations make better
+                                Currently I'm exploring big data tools and modern <span className="text-brand-primary font-medium">analytics</span> systems.
+                            </motion.p>
+                            <motion.p
+                                custom={2}
+                                initial="hidden"
+                                animate={isInView ? "visible" : "hidden"}
+                                variants={paragraphVariants}
+                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
+                            >
+                                My goal is to design efficient <span className="text-brand-primary font-medium">data pipelines</span> and help organizations make better
                                 decisions through data.
-                            </p>
+                            </motion.p>
                         </div>
 
                         {/* Quick Facts */}
