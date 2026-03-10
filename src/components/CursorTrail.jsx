@@ -9,9 +9,9 @@ const CursorTrail = () => {
 
         const handleMouseMove = (e) => {
             const now = Date.now();
-            // Throttle bubble generation to create max ~15-20 bubbles simultaneously
-            // Generating one every ~40-50ms means about 20 bubbles per second
-            if (now - lastBubbleTime > 40) {
+            // Throttle bubble generation to create max ~30-40 bubbles simultaneously
+            // Generating one every ~20ms means about 50 bubbles per second
+            if (now - lastBubbleTime > 20) {
                 lastBubbleTime = now;
 
                 // Random drift values
@@ -23,7 +23,7 @@ const CursorTrail = () => {
                     id: now,
                     x: e.clientX,
                     y: e.clientY,
-                    size: Math.random() * 4 + 4, // 4px to 8px
+                    size: (Math.random() * 4 + 4) * 1.5, // 6px to 12px
                     // Mix of warm orange (#f97316) and soft white (#ffffff)
                     color: Math.random() > 0.5 ? 'rgba(249, 115, 22, 0.8)' : 'rgba(255, 255, 255, 0.8)',
                     glowColor: Math.random() > 0.5 ? 'rgba(249, 115, 22, 0.4)' : 'rgba(255, 255, 255, 0.4)',
@@ -31,8 +31,8 @@ const CursorTrail = () => {
                     dy: `${dy}px`,
                 };
 
-                // Keep max 20 active bubbles on screen to ensure performance
-                setBubbles((prev) => [...prev.slice(-19), newBubble]);
+                // Keep max 40 active bubbles on screen to ensure performance
+                setBubbles((prev) => [...prev.slice(-39), newBubble]);
             }
         };
 
@@ -46,9 +46,9 @@ const CursorTrail = () => {
     useEffect(() => {
         const removeOldBubbles = () => {
             const now = Date.now();
-            // Bubbles live for 800ms to 1200ms depending on animation duration (we use 1000ms base)
+            // Bubbles live longer (we use 1800ms base)
             setBubbles(prev => {
-                const filtered = prev.filter(b => now - b.id < 1000);
+                const filtered = prev.filter(b => now - b.id < 1800);
                 // Return same reference if no changes to prevent unnecessary renders
                 return filtered.length === prev.length ? prev : filtered;
             });
@@ -74,7 +74,7 @@ const CursorTrail = () => {
                         boxShadow: `0 0 ${bubble.size + 4}px ${bubble.glowColor}`,
                         '--dx': bubble.dx,
                         '--dy': bubble.dy,
-                        animation: `cursor-bubble-float 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`, // smooth outward easing
+                        animation: `cursor-bubble-float 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`, // smooth outward easing
                     }}
                 />
             ))}
