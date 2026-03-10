@@ -42,7 +42,7 @@ const Hero = () => {
                                 <img
                                     src="/profile.jpeg"
                                     alt="Bhanu Prasad"
-                                    className="rounded-[30px] object-cover"
+                                    className="rounded-[30px] object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />
                                 {/* Bottom vignette */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
@@ -60,4 +60,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

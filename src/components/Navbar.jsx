@@ -5,9 +5,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
 
 const navItems = [
-    { name: 'About Me', href: '/#home' },
-    { name: 'Projects', href: '/#projects' },
+    { name: 'Home', href: '/#home' },
+    { name: 'About Me', href: '/#about' },
     { name: 'Skills', href: '/#skills' },
+    { name: 'Projects', href: '/#projects' },
     { name: 'Resume', href: '/resume' },
 ];
 
