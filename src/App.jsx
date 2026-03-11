@@ -8,6 +8,7 @@ import Projects from './components/Projects.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 import Resume from './components/Resume.jsx';
+import Certifications from './components/Certifications.jsx';
 import CursorTrail from './components/CursorTrail.jsx';
 
 const Home = () => (
@@ -15,6 +16,7 @@ const Home = () => (
     <Hero />
     <About />
     <Skills />
+    <Certifications />
     <Projects />
     <Contact />
   </main>

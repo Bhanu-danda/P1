@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
 
 const certifications = [
     {
@@ -7,18 +8,35 @@ const certifications = [
         title: "Oracle Analytics Cloud 2025 Certified Professional",
         organization: "Oracle",
         date: "October 2025",
+        link: "/certificates/oracle.pdf"
     },
     {
         id: 2,
         title: "A Guide to Machine Learning with Data Science",
         organization: "CipherSchools",
         date: "July 2025",
+        link: "/certificates/cipherschools.pdf"
     },
     {
         id: 3,
+        title: "Introduction to Hardware and Operating Systems",
+        organization: "IBM & Coursera",
+        date: "2025",
+        link: "/certificates/coursera-hardware-os.pdf"
+    },
+    {
+        id: 4,
+        title: "Social Networks",
+        organization: "NPTEL",
+        date: "2025",
+        link: "/certificates/nptel-social-networks.pdf"
+    },
+    {
+        id: 5,
         title: "Data Structures and Algorithms",
         organization: "Iamneo",
         date: "December 2024",
+        link: "/certificates/dsa.pdf"
     }
 ];
 
@@ -55,7 +73,12 @@ const CertCard = ({ cert, index }) => {
                 transition={{ duration: 0.6, delay: index * 0.2 + 0.1, ease: "easeOut" }}
                 className={`w-full md:w-[calc(50%-2.5rem)] pl-16 md:pl-0 flex ${isLeft ? 'md:justify-end' : 'md:justify-start'}`}
             >
-                <div className="w-full p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#262626] shadow-sm hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] hover:-translate-y-1.5 hover:border-blue-500/50 transition-all duration-500 relative overflow-hidden group/card items-start text-left">
+                <a 
+                    href={cert.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#262626] shadow-sm hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] hover:-translate-y-1.5 hover:border-blue-500/50 transition-all duration-500 relative overflow-hidden group/card flex flex-col items-start block text-left cursor-pointer"
+                >
                     {/* Glow effect */}
                     <div className="absolute -inset-px bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-cyan-500/0 group-hover/card:from-blue-500/10 group-hover/card:to-cyan-500/5 rounded-2xl transition-all duration-500 -z-10" />
                     
@@ -65,10 +88,17 @@ const CertCard = ({ cert, index }) => {
                     <div className="text-sm md:text-[15px] font-sans text-gray-400 mb-4">
                         {cert.organization}
                     </div>
-                    <div className="text-xs md:text-sm font-sans text-[#737373]">
-                        {cert.date}
+                    
+                    <div className="flex items-center justify-between w-full mt-auto pt-2">
+                        <div className="text-xs md:text-sm font-sans text-[#737373]">
+                            {cert.date}
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs font-sans text-brand-primary opacity-80 group-hover/card:opacity-100 transition-opacity">
+                            View Certificate
+                            <ExternalLink size={14} />
+                        </div>
                     </div>
-                </div>
+                </a>
             </motion.div>
         </div>
     );
@@ -79,16 +109,16 @@ const Certifications = () => {
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
     return (
-        <div className="pt-24 mt-20 border-t border-[#1a1a1a]" ref={sectionRef}>
-            <div className="max-w-5xl mx-auto px-4 md:px-6">
+        <section id="certifications" className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden" ref={sectionRef}>
+            <div className="section-container max-w-5xl mx-auto px-4 md:px-6">
                 
                 {/* Section Header */}
-                <div className="text-center mb-16 space-y-4">
+                <div className="text-center mb-16 md:mb-24 space-y-4">
                     <motion.h2 
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.6 }}
-                        className="text-4xl md:text-5xl font-logo font-bold text-white tracking-tighter"
+                        className="text-4xl md:text-5xl lg:text-6xl font-logo font-bold text-[#e5e5e5] tracking-tighter"
                     >
                         Certifications
                     </motion.h2>
@@ -96,7 +126,7 @@ const Certifications = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-gray-400 font-sans text-base md:text-lg"
+                        className="text-lg font-sans text-[#9ca3af] max-w-xl mx-auto"
                     >
                         Professional certifications and learning milestones.
                     </motion.p>
@@ -123,7 +153,9 @@ const Certifications = () => {
                 </div>
 
             </div>
-        </div>
+            {/* Background Decorative Element */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-blue-500/5 blur-[120px] pointer-events-none -z-10" />
+        </section>
     );
 };
 

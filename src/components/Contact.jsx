@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Phone, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Phone, ArrowRight, Heart } from 'lucide-react';
 
 const Contact = () => {
     const ref = useRef(null);
@@ -14,9 +14,9 @@ const Contact = () => {
     };
 
     const socialLinks = [
-        { label: 'LinkedIn', icon: <Linkedin size={16} />, href: 'https://www.linkedin.com/in/bhanu-prasad-reddy-b1431b282/' },
-        { label: 'GitHub', icon: <Github size={16} />, href: 'https://github.com/Bhanu-danda' },
-        { label: 'Phone', icon: <Phone size={16} />, href: 'tel:+918688020121' },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bhanu-prasad-reddy-b1431b282/' },
+        { label: 'GitHub', href: 'https://github.com/Bhanu-danda' },
+        { label: 'Phone', href: 'tel:+918688020121' },
     ];
 
     return (
@@ -108,20 +108,31 @@ const Contact = () => {
                                 You can also find me on —
                             </p>
 
-                            <div className="flex flex-wrap gap-4">
-                                {socialLinks.map((social) => (
-                                    <motion.a
-                                        key={social.label}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        whileHover={{ y: -3 }}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-[#d4d4d4] text-sm font-medium hover:border-brand-primary hover:text-brand-primary hover:bg-brand-primary/5 transition-all duration-300"
-                                    >
-                                        {social.icon}
-                                        {social.label}
-                                    </motion.a>
-                                ))}
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 w-full">
+                                <div className="flex flex-wrap gap-8">
+                                    {socialLinks.map((social) => (
+                                        <motion.a
+                                            key={social.label}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[#d4d4d4] text-sm font-medium hover:text-orange-500 transition-colors duration-300"
+                                        >
+                                            {social.label}
+                                        </motion.a>
+                                    ))}
+                                </div>
+
+                                {/* Location Tag */}
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={isInView ? { opacity: 1 } : {}}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
+                                    className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-[#e5e5e5] text-sm font-semibold tracking-wide shadow-sm"
+                                >
+                                    <span>Hyderabad, India</span>
+                                    <Heart size={16} fill="white" className="text-white animate-pulse" />
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>

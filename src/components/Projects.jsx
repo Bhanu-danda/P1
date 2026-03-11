@@ -109,6 +109,27 @@ const Projects = () => {
                         </motion.div>
                     ))}
                 </div>
+                
+                {/* View More on GitHub Button */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className="mt-16 md:mt-20 flex justify-center w-full"
+                >
+                    <a
+                        href="https://github.com/Bhanu-danda"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-[#262626] bg-[#111111] text-white font-sans font-bold text-base transition-all duration-300 hover:border-blue-500/50 hover:-translate-y-1 shadow-lg hover:shadow-[0_8px_30px_rgba(59,130,246,0.2)] group cursor-pointer relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                        <span className="group-hover:text-blue-400 transition-colors duration-300">
+                            View More Projects on GitHub
+                        </span>
+                        <ArrowRight size={20} className="text-gray-400 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-blue-400" />
+                    </a>
+                </motion.div>
             </div>
         </section>
     );
