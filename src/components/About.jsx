@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import AcademicJourney from './AcademicJourney';
+import DecryptedText from './ui/DecryptedText';
 
 const aboutParagraphs = [
     "I was born and brought up in Hyderabad, where I completed my early education at Dr. K.K.R Gowtham School.When I’m not working with data, you’ll usually find me watching cricket or movies to switch gears and reset.",
@@ -104,7 +105,7 @@ const About = () => {
                             className="space-y-4"
                         >
                             <h2 className="text-5xl md:text-6xl font-logo font-bold text-[#e5e5e5] tracking-tighter">
-                                About Me
+                                <DecryptedText text="About Me" animateOn="view" speed={80} maxIterations={12} />
                             </h2>
                             <div className="h-1.5 w-20 bg-brand-primary rounded-full" />
                         </motion.div>
@@ -118,7 +119,13 @@ const About = () => {
                                     transition={{ duration: 0.7, delay: index * 0.15 }}
                                 >
                                     <p className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed">
-                                        {paragraph}
+                                        <DecryptedText 
+                                            text={paragraph} 
+                                            animateOn="view" 
+                                            speed={20} 
+                                            maxIterations={5} 
+                                            sequential={true} 
+                                        />
                                     </p>
                                 </motion.div>
                             ))}

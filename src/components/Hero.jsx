@@ -1,7 +1,31 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 
 const Hero = () => {
+    // 3D Tilt Effect Setup
+    const cardRef = useRef(null);
+    const x = useMotionValue(0.5);
+    const y = useMotionValue(0.5);
+
+    const springConfig = { damping: 20, stiffness: 200, mass: 0.5 };
+    const springX = useSpring(x, springConfig);
+    const springY = useSpring(y, springConfig);
+
+    const rotateX = useTransform(springY, [0, 1], [8, -8]);
+    const rotateY = useTransform(springX, [0, 1], [-8, 8]);
+
+    const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        x.set((e.clientX - rect.left) / rect.width);
+        y.set((e.clientY - rect.top) / rect.height);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0.5);
+        y.set(0.5);
+    };
+
     return (
         <section
             id="home"
@@ -34,11 +58,17 @@ const Hero = () => {
                         transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
                         className="w-full lg:w-[35%] flex justify-center lg:justify-end"
                     >
-                        <div className="relative group">
+                        <div style={{ perspective: 1000 }} className="relative group w-full max-w-[400px]">
                             {/* Soft Gradient Background Glow */}
-                            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 blur-2xl rounded-[40px] opacity-50" />
+                            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 blur-2xl rounded-[40px] opacity-50 pointer-events-none" />
 
-                            <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-[30px] overflow-hidden shadow-2xl border border-white/10 bg-surface-800">
+                            <motion.div
+                                ref={cardRef}
+                                onMouseMove={handleMouseMove}
+                                onMouseLeave={handleMouseLeave}
+                                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                                className="relative w-full aspect-[4/5] rounded-[30px] overflow-hidden shadow-2xl border border-white/10 bg-surface-800 will-change-transform"
+                            >
                                 <img
                                     src="/profile.jpeg"
                                     alt="Bhanu Prasad"
@@ -46,7 +76,7 @@ const Hero = () => {
                                 />
                                 {/* Bottom vignette */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
-                            </div>
+                            </motion.div>
                         </div>
                     </motion.div>
 
