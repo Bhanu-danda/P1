@@ -46,18 +46,17 @@ const Contact = () => {
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                         className="space-y-12"
                     >
-                        {/* Playful Text */}
+                        {/* Professional Text */}
                         <div className="space-y-6">
                             <p className="font-sans text-[20px] md:text-[22px] font-medium text-brand-primary">
-                                Psst... exciting opportunities, anyone?
+                                I am open to new opportunities and collaborations.
                             </p>
                             <div className="space-y-4 text-[18px] md:text-[20px] text-[#d4d4d4] leading-relaxed font-sans max-w-xl">
                                 <p>
-                                    I'm open to new projects, part-time gigs, or even a full-time adventure.
+                                    I am currently seeking opportunities to work on meaningful projects, including internships, part-time roles, and full-time positions.
                                 </p>
                                 <p>
-                                    Just shoot me an email — I'm practically glued to it. <br className="hidden md:block" />
-                                    No delays, I promise!
+                                    If you have an opportunity or would like to collaborate, please feel free to reach out via email. I will respond at the earliest possible time. I look forward to connecting and contributing to impactful projects.
                                 </p>
                             </div>
                         </div>

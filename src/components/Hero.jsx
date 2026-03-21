@@ -36,13 +36,13 @@ const Hero = () => {
                     >
                         <div className="relative group">
                             {/* Soft Gradient Background Glow */}
-                            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 blur-2xl rounded-[40px] opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
+                            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 blur-2xl rounded-[40px] opacity-50" />
 
                             <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-[30px] overflow-hidden shadow-2xl border border-white/10 bg-surface-800">
                                 <img
                                     src="/profile.jpeg"
                                     alt="Bhanu Prasad"
-                                    className="rounded-[30px] object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    className="rounded-[30px] object-cover w-full h-full"
                                 />
                                 {/* Bottom vignette */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />

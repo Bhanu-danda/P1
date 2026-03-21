@@ -1,77 +1,88 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { MapPin, GraduationCap, Code2, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import AcademicJourney from './AcademicJourney';
-const quickFacts = [
-    { icon: <MapPin size={16} />, label: 'Location: India' },
-    { icon: <GraduationCap size={16} />, label: 'Student (Graduating 2027)' },
-    { icon: <Code2 size={16} />, label: 'Focus: Data Engineering' },
-    { icon: <BookOpen size={16} />, label: 'Learning: Big Data & Analytics Systems' },
+
+const aboutParagraphs = [
+    "I was born and brought up in Hyderabad, where I completed my early education at Dr. K.K.R Gowtham School.When I’m not working with data, you’ll usually find me watching cricket or movies to switch gears and reset.",
+    "During my college years, I was introduced to data and quickly realized how powerful it is in shaping decisions and solving real-world problems. That moment shifted my focus toward data engineering and analytics.",
+    "Since then, I’ve been building my skills in Python, SQL, Hadoop, and cloud tools like AWS along with visualization using Power BI. I’ve worked on projects such as an end-to-end weather data pipeline, where I explored data ingestion, processing, and analysis in a hands-on way.",
+    "I enjoy turning raw, unstructured data into meaningful insights and systems that actually work in real scenarios (even if it takes a few late-night debugging sessions).",
+    "My goal is to become a Data Engineer who builds scalable, efficient pipelines that solve real-world problems — and I’m actively working towards that every day."
 ];
 
-const paragraphVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (custom) => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            delay: custom * 0.2 + 0.1, // Staggered reveal
-            duration: 0.8,
-            ease: "easeOut"
-        }
-    })
-};
-
-const infoCards = [
-    {
-        title: 'Interests',
-        items: ['Data Engineering', 'System Design', 'Data Visualization', 'Financial Analytics'],
-    },
-    {
-        title: 'Hobbies',
-        items: ['Reading about technology', 'Exploring financial markets', 'Learning new tools', 'Building side projects'],
-    },
-    {
-        title: 'Currently Learning',
-        items: ['Apache Spark', 'Kafka', 'Airflow', 'Cloud Data Pipelines'],
-    },
+// Add your photo filenames here after placing them in the public folder.
+// Example: "/my-photo-1.jpg", "/my-photo-2.png"
+const personalPhotos = [
+    "/profile1.jpeg",
+    "/profile2.jpeg"
 ];
 
-const InfoCard = ({ title, items, index }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-80px" });
+const RotatingPhotoDisplay = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const cardRef = useRef(null);
+
+    // 3D Tilt Effect Setup
+    const x = useMotionValue(0.5);
+    const y = useMotionValue(0.5);
+
+    const springConfig = { damping: 20, stiffness: 200, mass: 0.5 };
+    const springX = useSpring(x, springConfig);
+    const springY = useSpring(y, springConfig);
+
+    const rotateX = useTransform(springY, [0, 1], [8, -8]);
+    const rotateY = useTransform(springX, [0, 1], [-8, 8]);
+
+    const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        x.set((e.clientX - rect.left) / rect.width);
+        y.set((e.clientY - rect.top) / rect.height);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0.5);
+        y.set(0.5);
+    };
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % personalPhotos.length);
+        }, 3500); // Rotates every 3.5 seconds
+        return () => clearInterval(timer);
+    }, []);
 
     return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-            whileHover={{
-                y: -6,
-                boxShadow: "0 0 30px rgba(6, 182, 212, 0.08)",
-            }}
-            className="p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#262626] hover:border-[#3b82f6]/30 transition-all duration-500 group relative"
-        >
-            {/* Soft Glow on Hover */}
-            <div className="absolute -inset-px bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 rounded-2xl transition-all duration-500 -z-10" />
+        <div style={{ perspective: 1000 }} className="relative w-full aspect-[4/5] z-10">
+            <motion.div
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="relative w-full h-full rounded-2xl overflow-hidden border border-[#262626] group transition-colors duration-500 hover:border-orange-500/40 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] shadow-2xl"
+            >
+                <AnimatePresence mode="wait">
+                    <motion.img
+                        key={currentIndex}
+                        src={personalPhotos[currentIndex]}
+                        alt={`Bhanu Prasad - ${currentIndex + 1}`}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out origin-center"
+                    />
+                </AnimatePresence>
 
-            <h3 className="text-lg md:text-xl font-logo font-bold text-white tracking-tight mb-4">
-                {title}
-            </h3>
-            <div className="h-px w-full bg-[#2a2a2a] mb-5" />
-            <ul className="space-y-3">
-                {items.map((item) => (
-                    <li
-                        key={item}
-                        className="flex items-center gap-3 text-sm md:text-[15px] font-sans text-[#a3a3a3] group-hover:text-[#d4d4d4] transition-colors duration-300"
-                    >
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-primary/60 shrink-0" />
-                        {item}
-                    </li>
-                ))}
-            </ul>
-        </motion.div>
+                {/* Subtle Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+                {/* Soft Glow Matching Orange Accent */}
+                <div className="absolute -inset-px bg-gradient-to-br from-orange-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+            </motion.div>
+        </div>
     );
 };
 
@@ -82,96 +93,50 @@ const About = () => {
     return (
         <section id="about" className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
             <div className="section-container max-w-7xl mx-auto px-6">
-                <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
+                <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
-                    {/* Left Column — Introduction Text */}
-                    <motion.div
-                        ref={sectionRef}
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full lg:w-[50%] space-y-8"
-                    >
-                        {/* Section Heading */}
-                        <div className="space-y-4">
-                            <h2 className="text-5xl md:text-6xl font-logo font-bold text-[#e5e5e5] tracking-tighter">
-                                About Me
-                            </h2>
-                        </div>
-
-                        {/* Introduction Paragraphs */}
-                        <div className="space-y-5">
-                            <motion.p
-                                custom={0}
-                                initial="hidden"
-                                animate={isInView ? "visible" : "hidden"}
-                                variants={paragraphVariants}
-                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
-                            >
-                                I'm Bhanu Prasad, an aspiring <span className="text-brand-primary font-medium">Data Engineer</span> passionate about building scalable <span className="text-brand-primary font-medium">data systems</span> and transforming raw data into meaningful insights.
-                            </motion.p>
-                            <motion.p
-                                custom={1}
-                                initial="hidden"
-                                animate={isInView ? "visible" : "hidden"}
-                                variants={paragraphVariants}
-                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
-                            >
-                                I enjoy working with technologies such as Python, SQL, and cloud-based data platforms.
-                                Currently I'm exploring big data tools and modern <span className="text-brand-primary font-medium">analytics</span> systems.
-                            </motion.p>
-                            <motion.p
-                                custom={2}
-                                initial="hidden"
-                                animate={isInView ? "visible" : "hidden"}
-                                variants={paragraphVariants}
-                                className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed"
-                            >
-                                My goal is to design efficient <span className="text-brand-primary font-medium">data pipelines</span> and help organizations make better
-                                decisions through data.
-                            </motion.p>
-                        </div>
-
-                        {/* Quick Facts */}
+                    {/* Left Column — About Content */}
+                    <div className="w-full lg:w-[60%] space-y-12" ref={sectionRef}>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                            className="pt-4"
+                            transition={{ duration: 0.6 }}
+                            className="space-y-4"
                         >
-                            <h3 className="text-sm font-logo font-bold text-[#737373] uppercase tracking-widest mb-5">
-                                Quick Facts
-                            </h3>
-                            <div className="flex flex-wrap gap-3">
-                                {quickFacts.map((fact) => (
-                                    <div
-                                        key={fact.label}
-                                        className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#262626] bg-[#111111] text-sm font-sans text-[#a3a3a3] hover:border-[#3b82f6]/30 hover:text-[#d4d4d4] transition-all duration-300"
-                                    >
-                                        <span className="text-brand-primary/80">{fact.icon}</span>
-                                        {fact.label}
-                                    </div>
-                                ))}
-                            </div>
+                            <h2 className="text-5xl md:text-6xl font-logo font-bold text-[#e5e5e5] tracking-tighter">
+                                About Me
+                            </h2>
+                            <div className="h-1.5 w-20 bg-brand-primary rounded-full" />
                         </motion.div>
-                    </motion.div>
 
-                    {/* Right Column — Info Cards */}
-                    <div className="w-full lg:w-[50%] flex flex-col gap-6">
-                        {infoCards.map((card, idx) => (
-                            <InfoCard
-                                key={card.title}
-                                title={card.title}
-                                items={card.items}
-                                index={idx}
-                            />
-                        ))}
+                        <div className="space-y-6">
+                            {aboutParagraphs.map((paragraph, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ duration: 0.7, delay: index * 0.15 }}
+                                >
+                                    <p className="text-base md:text-lg font-sans text-[#a3a3a3] leading-relaxed">
+                                        {paragraph}
+                                    </p>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
 
+                    {/* Right Column — Rotating Photo Display */}
+                    <div className="w-full lg:w-[40%] flex justify-center sticky top-32">
+                        <div className="w-full max-w-[400px]">
+                            <RotatingPhotoDisplay />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Academic Journey Section */}
-                <AcademicJourney />
+                <div className="mt-32">
+                    <AcademicJourney />
+                </div>
             </div>
 
             {/* Background Decorative Element */}

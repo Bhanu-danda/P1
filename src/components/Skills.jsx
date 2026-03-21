@@ -19,19 +19,19 @@ const skillCategories = [
         icon: <Database size={22} className="text-cyan-500" />,
         skills: [
             { name: 'SQL', icon: '📊' },
-            { name: 'Pandas', icon: '🐼' },
-            { name: 'NumPy', icon: '🔢' },
+            { name: 'Excel', icon: '📗' },
             { name: 'Power BI', icon: '📉' },
-            { name: 'Tableau', icon: '🖌' }
+            { name: 'Python', icon: '🐍' },
         ],
     },
     {
-        title: 'Backend Development',
+        title: 'Programming Languages',
         icon: <Server size={22} className="text-indigo-500" />,
         skills: [
-            { name: 'Java', icon: '☕' },
-            { name: 'Node.js', icon: '🟢' },
-            { name: 'REST APIs', icon: '🔌' }
+            { name: 'C', icon: '💻' },
+            { name: 'C++', icon: '🚀' },
+            { name: 'SQL', icon: '🗄️' },
+            { name: 'Python', icon: '🐍' }
         ],
     },
     {
@@ -39,9 +39,10 @@ const skillCategories = [
         icon: <Terminal size={22} className="text-emerald-500" />,
         skills: [
             { name: 'Git', icon: '🌿' },
-            { name: 'Docker', icon: '🐳' },
-            { name: 'Linux', icon: '🐧' },
-            { name: 'AWS', icon: '☁' }
+            { name: 'Power BI', icon: '📉' },
+            { name: 'AWS', icon: '☁' },
+            { name: 'MySQL', icon: '🐬' },
+            { name: 'PostgreSQL', icon: '🐘' }
         ],
     },
 ];
