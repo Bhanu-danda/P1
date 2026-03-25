@@ -45,7 +45,7 @@ const duplicatedCertifications = [...certifications, ...certifications];
 
 const CertCard = ({ cert }) => {
     return (
-        <a 
+        <a
             href={cert.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -55,16 +55,16 @@ const CertCard = ({ cert }) => {
             <div className="absolute -inset-px bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-cyan-500/0 group-hover/card:from-blue-500/5 group-hover/card:to-cyan-500/5 transition-all duration-500 -z-10" />
 
             <div className="flex items-center gap-3 mb-5">
-               <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 group-hover/card:bg-blue-500 group-hover/card:text-white transition-all duration-500 shadow-inner">
+                <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 group-hover/card:bg-blue-500 group-hover/card:text-white transition-all duration-500 shadow-inner">
                     <Award size={20} />
-               </div>
-               <span className="text-[10px] md:text-xs font-sans text-gray-500 font-bold tracking-[0.2em] uppercase">{cert.organization}</span>
+                </div>
+                <span className="text-[10px] md:text-xs font-sans text-gray-500 font-bold tracking-[0.2em] uppercase">{cert.organization}</span>
             </div>
-            
+
             <h3 className="text-lg md:text-xl font-bold font-logo text-[#e5e5e5] mb-6 line-clamp-2 leading-tight h-12 group-hover/card:text-white transition-colors">
                 {cert.title}
             </h3>
-            
+
             <div className="flex items-center justify-between w-full mt-auto pt-5 border-t border-white/5">
                 <div className="text-xs md:text-sm font-sans text-gray-500 font-medium">
                     {cert.date}
@@ -85,11 +85,11 @@ const Certifications = () => {
     return (
         <section id="certifications" className="py-24 md:py-32 bg-[#050505] relative overflow-hidden" ref={sectionRef}>
             <div className="section-container max-w-7xl mx-auto px-6">
-                
+
                 <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
-                    
+
                     {/* Left Side: Header Content */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={isInView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -104,10 +104,10 @@ const Certifications = () => {
                         <p className="text-lg font-sans text-gray-500 max-w-md mx-auto lg:mx-0 leading-relaxed">
                             A showcase of my professional growth, technical expertise, and continuous learning journey through industry-recognized milestones.
                         </p>
-                        
+
                         <div className="hidden lg:flex items-center gap-4 text-gray-600">
-                           <div className="h-[1px] w-12 bg-gray-800" />
-                           <span className="text-xs font-sans uppercase tracking-widest font-semibold">Scroll to explore</span>
+                            <div className="h-[1px] w-12 bg-gray-800" />
+                            {/* <span className="text-xs font-sans uppercase tracking-widest font-semibold">Scroll to explore</span> */}
                         </div>
                     </motion.div>
 
@@ -117,7 +117,7 @@ const Certifications = () => {
                         <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#050505] to-transparent z-10" />
                         <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#050505] to-transparent z-10" />
 
-                        <motion.div 
+                        <motion.div
                             className="flex"
                             animate={{
                                 x: [0, -1870], // (350px card + 24px margin) * 5 unique certificates
